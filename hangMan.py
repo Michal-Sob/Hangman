@@ -1,4 +1,5 @@
 import random
+import time
 
 hangman = [r'''
              ____
@@ -57,7 +58,6 @@ def splitting_countries():
     for line in open('countries-and-capitals.txt'):
         line = line.split('|')
         countries_capitals.append(line)
-        
 
 def choose_category():
     user_choice=input("Pls select your category (1 - Jobs)(2 - Countries)(3 - Capitals)" )
@@ -119,17 +119,32 @@ def play_again():
         elif question == 'q':
             quit()
 
+def attempts_counter(counter):
+    counter += 1
+    return counter
+
+def starting_time():
+    start = time.time()
+    return start
+def ending_time(start_time):
+    
+    end = time.time() - start_time
+    return end
 
 def main():
+    counter = 0
     live = 0
+    start_time = starting_time()
     splitting_countries()
     user_choice = int(choose_category())
-    print("You've selected category: ", +user_choice)
+    print("You've selected category: ", + user_choice)
     lotery_word=random_word(user_choice)
     locked_word=locking_word(lotery_word)
     print(locked_word)
     while live <= 6:
         char = input(" Please give me a char: ")
+        counter = attempts_counter(counter)
+        print(counter)
         if checking_char(char, lotery_word) is not False:
             print("Congratulation!!!")
             duplicated_char=checking_char(char, lotery_word)
@@ -138,11 +153,9 @@ def main():
                 print("kasujemy zycie")
                 print(hangman[live])
                 live += 1
+    print(ending_time(start_time))
+    print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
     print("You lost!")
-            
-
 
 main()
 play_again()
-#test
-#test2

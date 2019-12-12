@@ -49,7 +49,6 @@ jobs =[]
 user_choice=1
 lotery_word=[]
 locked_word=[]
-word=[]
 duplicated_char=[]
 countries_capitals = []
 
@@ -101,10 +100,10 @@ def locking_word(z):
     return locked_word
 
 def checking_char(x, y): #zwraca false jezeli nie ma znaku w slowie
-    if len([i for i,val in enumerate(y) if val==x])==0:
+    if len([i for i, val in enumerate(y) if val.lower()==x.lower()])==0:
         return False
     else:
-        duplicated_char=[i for i,val in enumerate(y) if val==x]
+        duplicated_char=[i for i,val in enumerate(y) if val.lower()==x.lower()]
         return duplicated_char #zwraca liste indeksow gdzie nasz char jest 
 
 def unlocking_char(x, list, lock, duplicated_char):
@@ -131,7 +130,6 @@ def starting_time():
     start = time.time()
     return start
 def ending_time(start_time):
-    
     end = round(time.time() - start_time)
     return end
 
@@ -152,7 +150,6 @@ def main():
     counter = 0
     live = 0
     start_time = starting_time()
-    splitting_countries()
     user_choice = int(choose_category())
     print("You've selected category: ", + user_choice)
     lotery_word=random_word(user_choice)
@@ -177,5 +174,6 @@ def main():
             live += 1
     finish(correct_guess, start_time, counter, lotery_word)
 
+splitting_countries()
 main()
 play_again()

@@ -124,10 +124,6 @@ def play_again():
         else:
             play_again()
 
-def attempts_counter(counter):
-    counter += 1
-    return counter
-
 def starting_time():
     start = time.time()
     return start
@@ -159,12 +155,12 @@ def main():
     locked_word=locking_word(lotery_word)
     print(locked_word)
     while live <= 6:
+        if '_' not in locked_word:
+            break
         char = input(" Please give me a char: ")
         clear()
-        counter = attempts_counter(counter)
+        counter += 1
         if checking_char(char, lotery_word) is not False:
-            if '_' not in locked_word:
-                break
             print(hangman[live])
             print(correct_guess)
             print("Congratulation!!!")

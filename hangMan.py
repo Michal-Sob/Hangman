@@ -139,7 +139,7 @@ def ending_time(start_time):
 
 
 def finish(correct_guess, start_time, counter, lotery_word):
-    if correct_guess >= len(lotery_word):
+    if '_' not in locked_word:
         print(lotery_word)
         print("CONGRATULATION YOU WON")
         print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
@@ -147,11 +147,10 @@ def finish(correct_guess, start_time, counter, lotery_word):
         print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
         print(f"You lost! your word was {lotery_word}")
 
-
 def main():
     correct_guess = 0
-    counter = 0
     live = 0
+    counter = 0
     start_time = starting_time()
     splitting_countries()
     user_choice = int(choose_category())
@@ -164,22 +163,17 @@ def main():
         clear()
         counter = attempts_counter(counter)
         if checking_char(char, lotery_word) is not False:
-            correct_guess += 1
-            if correct_guess == len(lotery_word):
+            if '_' not in locked_word:
                 break
             print(hangman[live])
             print(correct_guess)
             print("Congratulation!!!")
             duplicated_char=checking_char(char, lotery_word)
-            current_word_state = unlocking_char(char, lotery_word, locked_word, duplicated_char)
             print(unlocking_char(char, lotery_word, locked_word, duplicated_char))
         else:
             print("-1 live!")
             print(hangman[live])
-            try:
-                print(current_word_state)
-            except:
-                UnboundLocalError
+            print(locked_word)
             live += 1
     finish(correct_guess, start_time, counter, lotery_word)
 

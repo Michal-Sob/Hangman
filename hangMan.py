@@ -94,6 +94,7 @@ def random_word(x):
         return lotery_word
 
 def locking_word(z):
+    locked_word=[]
     word_size=len(z)
     for x in range(word_size):
         locked_word.append("_")
@@ -140,16 +141,23 @@ def finish(correct_guess, start_time, counter, lotery_word):
         print(lotery_word)
         print("CONGRATULATION YOU WON")
         print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
+        
     else:
         print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
         print(f"You lost! your word was {lotery_word}")
+        
 
 
 def main():
+    locked_word=[]
     correct_guess = 0
     counter = 0
     live = 0
     start_time = starting_time()
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 8f067bf2d66bb9283edb5e43f5aa785f824eb970
     user_choice = int(choose_category())
     print("You've selected category: ", + user_choice)
     lotery_word=random_word(user_choice)
@@ -158,7 +166,7 @@ def main():
     while live <= 6:
         if '_' not in locked_word:
             break
-        char = input(" Please give me a char: ")
+        char = input(" Please give me a char - use capital leather: ")
         clear()
         counter += 1
         if checking_char(char, lotery_word) is not False:
@@ -173,7 +181,10 @@ def main():
             print(locked_word)
             live += 1
     finish(correct_guess, start_time, counter, lotery_word)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f067bf2d66bb9283edb5e43f5aa785f824eb970
 splitting_countries()
 main()
 play_again()

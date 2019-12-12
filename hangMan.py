@@ -82,12 +82,15 @@ def random_word(x):
         countries_capitals= data_bases(x)
         random.shuffle(countries_capitals)
         lotery_word=list(countries_capitals[0][0])
+        del lotery_word[-1]
         print(lotery_word)
         return lotery_word
     elif x == 3:
         countries_capitals= data_bases(x)
         random.shuffle(countries_capitals)
         lotery_word=list(countries_capitals[0][1])
+        del lotery_word[0]
+        del lotery_word[-1]
         print(lotery_word)
         return lotery_word
 
@@ -97,12 +100,12 @@ def locking_word(z):
         locked_word.append("_")
     return locked_word
 
-def checking_char(x, y):
+def checking_char(x, y): #zwraca false jezeli nie ma znaku w slowie
     if len([i for i,val in enumerate(y) if val==x])==0:
         return False
     else:
         duplicated_char=[i for i,val in enumerate(y) if val==x]
-        return duplicated_char
+        return duplicated_char #zwraca liste indeksow gdzie nasz char jest 
 
 def unlocking_char(x, list, lock, duplicated_char):
     index_to_unlock=1
@@ -125,7 +128,7 @@ def play_again():
             play_again()
 
 def attempts_counter(counter):
-    counter += 1
+    counter +=1
     return counter
 
 def starting_time():
@@ -139,7 +142,7 @@ def ending_time(start_time):
 
 
 def finish(correct_guess, start_time, counter, lotery_word):
-    if '_' not in locked_word:
+    if correct_guess >= len(lotery_word):
         print(lotery_word)
         print("CONGRATULATION YOU WON")
         print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
@@ -147,10 +150,11 @@ def finish(correct_guess, start_time, counter, lotery_word):
         print(f"You played {ending_time(start_time)} seconds and tried giving correct letter {counter} times!")
         print(f"You lost! your word was {lotery_word}")
 
+
 def main():
     correct_guess = 0
-    live = 0
     counter = 0
+    live = 0
     start_time = starting_time()
     splitting_countries()
     user_choice = int(choose_category())
@@ -163,7 +167,8 @@ def main():
         clear()
         counter = attempts_counter(counter)
         if checking_char(char, lotery_word) is not False:
-            if '_' not in locked_word:
+            correct_guess += 1
+            if correct_guess == len(lotery_word):
                 break
             print(hangman[live])
             print(correct_guess)
@@ -173,8 +178,12 @@ def main():
         else:
             print("-1 live!")
             print(hangman[live])
-            print(locked_word)
+            try:
+                print(current_word_state)
+            except:
+                UnboundLocalError
             live += 1
+            
     finish(correct_guess, start_time, counter, lotery_word)
 
 main()
